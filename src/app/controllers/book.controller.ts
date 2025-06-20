@@ -1,6 +1,7 @@
 import { create } from "domain";
 import { Request, Response } from "express";
-import { createBookService } from "../services/book.service";
+import { createBookService, getAllBookService, getBookByIdService } from "../services/book.service";
+import IBook from "../Interfaces/book";
 
 export const createBook = async (req: Request, res: Response) => {
     try {
@@ -12,7 +13,7 @@ export const createBook = async (req: Request, res: Response) => {
             res.status(201).json({
                 success: true,
                 message: "Book created successfully",
-                book: newBook
+                data: newBook
             });
         }
         else {
@@ -29,6 +30,67 @@ export const createBook = async (req: Request, res: Response) => {
             success: false,
             message: "Validation failed",
             error: error
+        });
+    }
+}
+
+export const getAllBook = async (req: Request, res: Response) => {
+    try {
+
+        const filter: Object = req.query.filter ? { genre: req.query.filter } : {};
+        const sortBy: string = req.query.sortBy ? req.query.sortBy.toString() : "title";
+        const sort: string = req.query.sort ? req.query.sort.toString() : "asc";
+        const limit: number = req.query.limit ? parseInt(req.query.limit.toString()) : 10;
+
+        const books = await getAllBookService(filter, sortBy, sort, limit);
+
+        if (books.length > 0) {
+            res.status(200).json({
+                success: true,
+                message: "Books retrieved successfully",
+                data: books
+            });
+        }
+        else {
+            res.status(404).json({
+                success: false,
+                message: "No books found",
+                data: []
+            });
+        }
+    } catch (error: any) {
+        res.status(500).json({
+            success: false,
+            message: "Failed to retrieve books",
+            error: error.message
+        });
+    }
+}
+
+export const getBookById = async (req: Request, res: Response) => {
+    try {
+        const bookId = req.params.bookId;
+        console.log("Fetching book with ID:", bookId);
+        const book: any = await getBookByIdService(bookId);
+
+        if (book._id) {
+            res.status(200).json({
+                success: true,
+                message: "Book retrieved successfully",
+                data: book
+            });
+        } else {
+            res.status(404).json({
+                success: false,
+                message: "Book not found",
+                data: {}
+            });
+        }
+    } catch (error: any) {
+        res.status(500).json({
+            success: false,
+            message: "Failed to retrieve book",
+            error: error.message
         });
     }
 }
