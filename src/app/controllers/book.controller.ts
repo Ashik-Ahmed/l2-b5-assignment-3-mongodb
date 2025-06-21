@@ -1,6 +1,6 @@
 import { create } from "domain";
 import { Request, Response } from "express";
-import { createBookService, getAllBookService, getBookByIdService, updateBookByIdService } from "../services/book.service";
+import { createBookService, deleteBookByIdService, getAllBookService, getBookByIdService, updateBookByIdService } from "../services/book.service";
 import IBook from "../Interfaces/book";
 
 export const createBook = async (req: Request, res: Response) => {
@@ -121,6 +121,35 @@ export const updateBookById = async (req: Request, res: Response) => {
         res.status(500).json({
             success: false,
             message: "Failed to update book",
+            error: error
+        });
+    }
+}
+
+
+export const deleteBookById = async (req: Request, res: Response) => {
+    try {
+        const bookId = req.params.bookId;
+
+        const deletedBook = await deleteBookByIdService(bookId);
+
+        if (deletedBook?.deletedCount > 0) {
+            res.status(200).json({
+                success: true,
+                message: "Book deleted successfully",
+                data: null
+            });
+        } else {
+            res.status(404).json({
+                success: false,
+                message: "Book not found",
+                error: "No book found with the provided ID"
+            });
+        }
+    } catch (error: any) {
+        res.status(500).json({
+            success: false,
+            message: "Failed to delete book",
             error: error
         });
     }

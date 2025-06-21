@@ -14,11 +14,16 @@ export const getAllBookService = async (filter: Object, sortBy: string, sort: st
 
 export const getBookByIdService = async (id: string) => {
     const book = await Book.findById(id);
-    console.log(`Book found: ${book}`);
     return book;
 }
 
 export const updateBookByIdService = async (id: string, bookInfo: IBook) => {
     const updatedBook = await Book.findByIdAndUpdate(id, bookInfo, { new: true, runValidators: true });
     return updatedBook;
-}   
+}
+
+export const deleteBookByIdService = async (bookId: string) => {
+    // const deletedBook = await Book.findByIdAndDelete(bookId);
+    const deletedBook = await Book.deleteOne({ _id: bookId });
+    return deletedBook;
+}
