@@ -58,13 +58,13 @@ export const borrowBook = async (req: Request, res: Response) => {
 
 export const borrowedBookSummary = async (req: Request, res: Response) => {
     try {
-        const report = await borrowedBookSummaryService();
+        const summary = await borrowedBookSummaryService();
 
-        if (report.length > 0) {
+        if (summary.length > 0) {
             return res.status(200).json({
                 success: true,
                 message: "Borrowed books summary retrieved successfully",
-                data: report
+                data: summary
             });
         } else {
             return res.status(404).json({
