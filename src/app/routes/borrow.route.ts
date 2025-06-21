@@ -1,11 +1,12 @@
 import express from 'express';
-import { borrowBook } from '../controllers/borrow.controller';
+import { borrowBook, borrowedBookSummary } from '../controllers/borrow.controller';
 
 
 const router = express.Router();
 
 router.route('/')
     .post(borrowBook)
+    .get(borrowedBookSummary)
 
 
 

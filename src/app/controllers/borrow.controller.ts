@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { getBookByIdService } from "../services/book.service";
 import IBook from "../Interfaces/book";
-import { borrowBookService } from "../services/borrow.service";
+import { borrowBookService, borrowedBookSummaryService } from "../services/borrow.service";
 
 export const borrowBook = async (req: Request, res: Response) => {
     try {
@@ -54,3 +54,29 @@ export const borrowBook = async (req: Request, res: Response) => {
         });
     }
 }
+
+
+export const borrowedBookSummary = async (req: Request, res: Response) => {
+    try {
+        const report = await borrowedBookSummaryService();
+
+        if (report.length > 0) {
+            return res.status(200).json({
+                success: true,
+                message: "Borrowed books summary retrieved successfully",
+                data: report
+            });
+        } else {
+            return res.status(404).json({
+                success: false,
+                message: "No borrowed books found"
+            });
+        }
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Failed to retrieve borrowed book report",
+            error: error
+        });
+    }
+};
