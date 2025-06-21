@@ -17,3 +17,8 @@ export const getBookByIdService = async (id: string) => {
     console.log(`Book found: ${book}`);
     return book;
 }
+
+export const updateBookByIdService = async (id: string, bookInfo: IBook) => {
+    const updatedBook = await Book.findByIdAndUpdate(id, bookInfo, { new: true, runValidators: true });
+    return updatedBook;
+}   

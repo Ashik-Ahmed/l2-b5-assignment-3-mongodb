@@ -1,6 +1,6 @@
 import { create } from "domain";
 import { Request, Response } from "express";
-import { createBookService, getAllBookService, getBookByIdService } from "../services/book.service";
+import { createBookService, getAllBookService, getBookByIdService, updateBookByIdService } from "../services/book.service";
 import IBook from "../Interfaces/book";
 
 export const createBook = async (req: Request, res: Response) => {
@@ -90,7 +90,38 @@ export const getBookById = async (req: Request, res: Response) => {
         res.status(500).json({
             success: false,
             message: "Failed to retrieve book",
-            error: error.message
+            error: error
+        });
+    }
+}
+
+
+export const updateBookById = async (req: Request, res: Response) => {
+    try {
+        const bookId = req.params.bookId;
+        const updatedBookInfo = req.body;
+
+        const updatedBook = await updateBookByIdService(bookId, updatedBookInfo);
+
+        if (updatedBook) {
+            res.status(200).json({
+                success: true,
+                message: "Book updated successfully",
+                data: updatedBook
+            });
+        }
+        else {
+            res.status(404).json({
+                success: false,
+                message: "Book not found",
+                error: "No book found with the provided ID"
+            });
+        }
+    } catch (error: any) {
+        res.status(500).json({
+            success: false,
+            message: "Failed to update book",
+            error: error
         });
     }
 }
