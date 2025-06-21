@@ -16,5 +16,18 @@ const bookSchema = new mongoose.Schema<IBook>({
     }
 )
 
+bookSchema.pre('updateOne', function (next) {
+    const update: any = this.getUpdate();
+    if (update && typeof update.copies !== 'undefined') {
+        if (update.copies === 0) {
+            update.available = false;
+        } else if (update.copies > 0) {
+            update.available = true;
+        }
+        this.setUpdate(update);
+    }
+    next();
+});
+
 const Book = mongoose.model<IBook>('Book', bookSchema);
 export default Book;

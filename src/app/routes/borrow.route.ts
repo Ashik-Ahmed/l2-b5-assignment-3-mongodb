@@ -1,10 +1,12 @@
 import express from 'express';
+import { borrowBook } from '../controllers/borrow.controller';
+
 
 const router = express.Router();
 
 router.route('/')
-    .get((req, res) => {
-        res.send('Borrow Route');
-    });
+    .post(borrowBook)
+
+
 
 export default router;

@@ -18,7 +18,8 @@ export const getBookByIdService = async (id: string) => {
 }
 
 export const updateBookByIdService = async (id: string, bookInfo: IBook) => {
-    const updatedBook = await Book.findByIdAndUpdate(id, bookInfo, { new: true, runValidators: true });
+    // const updatedBook = await Book.findByIdAndUpdate(id, bookInfo, { new: true, runValidators: true });
+    const updatedBook = await Book.updateOne({ _id: id }, bookInfo, { new: true, runValidators: true });
     return updatedBook;
 }
 

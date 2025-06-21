@@ -13,6 +13,6 @@ app.get('/', (req: Request, res: Response) => {
 
 
 app.use('/api/books', bookRoute);
-app.use('/api/borrows', borrowRoute);
+app.use('/api/borrow', borrowRoute);
 
 export default app;
