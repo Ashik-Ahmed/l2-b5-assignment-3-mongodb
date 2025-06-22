@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import IBook from "../Interfaces/book";
 import Book from "../models/book";
 
@@ -18,13 +19,15 @@ export const getBookByIdService = async (id: string) => {
 }
 
 export const updateBookByIdService = async (id: string, bookInfo: IBook) => {
-    // const updatedBook = await Book.findByIdAndUpdate(id, bookInfo, { new: true, runValidators: true });
+
     const updatedBook = await Book.updateOne({ _id: id }, bookInfo, { new: true, runValidators: true });
     return updatedBook;
 }
 
 export const deleteBookByIdService = async (bookId: string) => {
-    // const deletedBook = await Book.findByIdAndDelete(bookId);
-    const deletedBook = await Book.deleteOne({ _id: bookId });
+
+    const bookObjectId = new mongoose.Types.ObjectId(bookId);
+    const deletedBook = await Book.deleteOne({ _id: bookObjectId });
+
     return deletedBook;
 }

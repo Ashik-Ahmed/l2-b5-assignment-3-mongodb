@@ -18,13 +18,13 @@ export const borrowBook = async (req: Request, res: Response) => {
         const borrowedBook: IBook | null = await getBookByIdService(book);
 
         if (!borrowedBook) {
-            return res.status(404).json({
+            res.status(404).json({
                 success: false,
                 message: "Book not found"
             });
         }
         else if (borrowedBook.copies < quantity) {
-            return res.status(400).json({
+            res.status(400).json({
                 success: false,
                 message: "Insufficient copies available"
             });
@@ -34,13 +34,13 @@ export const borrowBook = async (req: Request, res: Response) => {
             const borrowResult = await borrowBookService(book, quantity, dueDate);
 
             if (borrowResult?._id) {
-                return res.status(500).json({
+                res.status(201).json({
                     success: true,
                     message: "Book borrowed successfully",
                     data: borrowResult
                 });
             }
-            return res.status(500).json({
+            res.status(500).json({
                 success: false,
                 message: "Failed to borrow book",
                 error: "Borrowing operation failed"
@@ -61,13 +61,13 @@ export const borrowedBookSummary = async (req: Request, res: Response) => {
         const summary = await borrowedBookSummaryService();
 
         if (summary.length > 0) {
-            return res.status(200).json({
+            res.status(200).json({
                 success: true,
                 message: "Borrowed books summary retrieved successfully",
                 data: summary
             });
         } else {
-            return res.status(404).json({
+            res.status(404).json({
                 success: false,
                 message: "No borrowed books found"
             });

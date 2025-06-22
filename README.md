@@ -29,7 +29,7 @@ This API provides endpoints to manage a library system, including books and borr
 - `POST /api/books`  
   Add a new book.
 
-- `PUT /api/books/:id`  
+- `PATCH /api/books/:id`  
   Update an existing book.
 
 - `DELETE /api/books/:id`  

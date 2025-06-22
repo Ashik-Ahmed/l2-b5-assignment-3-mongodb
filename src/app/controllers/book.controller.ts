@@ -70,7 +70,7 @@ export const getAllBook = async (req: Request, res: Response) => {
 export const getBookById = async (req: Request, res: Response) => {
     try {
         const bookId = req.params.bookId;
-        console.log("Fetching book with ID:", bookId);
+
         const book: any = await getBookByIdService(bookId);
 
         if (book._id) {
@@ -130,7 +130,7 @@ export const updateBookById = async (req: Request, res: Response) => {
 export const deleteBookById = async (req: Request, res: Response) => {
     try {
         const bookId = req.params.bookId;
-
+        console.log("Deleting book with ID:", bookId);
         const deletedBook = await deleteBookByIdService(bookId);
 
         if (deletedBook?.deletedCount > 0) {

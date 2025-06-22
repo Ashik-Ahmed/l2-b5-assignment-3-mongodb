@@ -1,6 +1,6 @@
 import express, { Application, Request, Response } from 'express';
-import bookRoute from './routes/book.route';
-import borrowRoute from './routes/borrow.route';
+import bookRoute from '../src/app/routes/book.route';
+import borrowRoute from '../src/app/routes/borrow.route';
 
 const app: Application = express();
 
