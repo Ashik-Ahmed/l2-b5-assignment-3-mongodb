@@ -2,6 +2,53 @@
 
 This API provides endpoints to manage a library system, including books and borrowing functionality. It is built with Node.js, Express, TypeScript, and MongoDB.
 
+
+## Getting Started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) (v16 or above recommended)
+- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+- [MongoDB](https://www.mongodb.com/) (local or cloud instance)
+
+### Setup Steps
+
+1. **Clone the repository:**
+   ```bash
+   git clone <repository-url>
+   cd l2-b5-assignment-3-mongodb
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+3. **Configure environment variables:**
+   - Create a `.env` file in the root directory.
+   - Add the following variables:
+     ```
+     PORT=5000
+     MONGODB_URI=mongodb://localhost:27017/librarydb
+     ```
+     Adjust the `MONGODB_URI` as needed for your MongoDB setup.
+
+4. **Run the server:**
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+   The server will start on the port specified in your `.env` file (default is 5000).
+
+5. **Test the API:**
+   - Use tools like [Postman](https://www.postman.com/) or [curl](https://curl.se/) to interact with the endpoints listed above.
+
+---
+
+
 ## Features
 
 - **Books**
