@@ -21,13 +21,18 @@ borrowSchema.post("save", async function (doc) {
     // Decrement the book's copies
     const book = await Book.findById(bookId);
     if (book) {
+        // book.copies -= borrowedQty;
+        // // If copies become 0, set available to false
+        // if (book.copies <= 0) {
+        //     book.copies = 0;
+        //     book.available = false;
+        // }
+        // await book.save();
+
         book.copies -= borrowedQty;
-        // If copies become 0, set available to false
-        if (book.copies <= 0) {
-            book.copies = 0;
-            book.available = false;
+        if (typeof book.updateAvailability === "function") {
+            await book.updateAvailability(); // Use the instance method
         }
-        await book.save();
     }
 });
 

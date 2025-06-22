@@ -7,6 +7,7 @@ interface IBook {
     description: string;
     copies: number;
     available: boolean;
+    updateAvailability?: () => Promise<void>;
 }
 
 export default IBook;

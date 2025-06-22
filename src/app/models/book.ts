@@ -16,6 +16,17 @@ const bookSchema = new mongoose.Schema<IBook>({
     }
 )
 
+bookSchema.methods.updateAvailability = async function () {
+    if (this.copies <= 0) {
+        this.copies = 0;
+        this.available = false;
+    } else {
+        this.available = true;
+    }
+
+    await this.save();
+};
+
 bookSchema.pre('updateOne', function (next) {
     const update: any = this.getUpdate();
     if (update && typeof update.copies !== 'undefined') {
