@@ -103,7 +103,7 @@ export const updateBookById = async (req: Request, res: Response) => {
 
         const updatedBook = await updateBookByIdService(bookId, updatedBookInfo);
 
-        if (updatedBook?._id) {
+        if (updatedBook?.modifiedCount > 0) {
             res.status(200).json({
                 success: true,
                 message: "Book updated successfully",

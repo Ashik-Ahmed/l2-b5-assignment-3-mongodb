@@ -16,6 +16,15 @@ const bookSchema = new mongoose.Schema<IBook>({
     }
 )
 
+bookSchema.pre('save', function (next) {
+    if (this.copies <= 0) {
+        this.available = false;
+    } else {
+        this.available = true;
+    }
+    next();
+});
+
 bookSchema.methods.updateAvailability = async function () {
     if (this.copies <= 0) {
         this.copies = 0;
@@ -29,8 +38,9 @@ bookSchema.methods.updateAvailability = async function () {
 
 bookSchema.pre('updateOne', function (next) {
     const update: any = this.getUpdate();
+
     if (update && typeof update.copies !== 'undefined') {
-        if (update.copies === 0) {
+        if (update.copies == 0) {
             update.available = false;
         } else if (update.copies > 0) {
             update.available = true;
