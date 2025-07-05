@@ -7,6 +7,7 @@ const bookSchema = new mongoose.Schema<IBook>({
     genre: { type: String, required: [true, 'Genre is required'], enum: ['FICTION', 'NON_FICTION', 'SCIENCE', 'HISTORY', 'BIOGRAPHY', 'FANTASY'] },
     isbn: { type: String, required: [true, 'ISBN is required'], unique: true },
     description: { type: String },
+    cover: { type: String },
     copies: { type: Number, required: [true, 'Number of copies is required'], min: [0, "Copies must be a positive number"] },
     available: { type: Boolean, default: true }
 },

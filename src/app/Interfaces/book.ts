@@ -6,6 +6,7 @@ interface IBook {
     isbn: string;
     description: string;
     copies: number;
+    cover: string;
     available: boolean;
     updateAvailability?: () => Promise<void>;
 }
