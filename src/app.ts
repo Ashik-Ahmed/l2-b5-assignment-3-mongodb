@@ -5,8 +5,12 @@ import cors from 'cors';
 
 const app: Application = express();
 
+app.use(
+    cors({
+        origin: ['http://localhost:5173', 'https://l2-b5-assignment-4-redux.vercel.app']
+    })
+);
 app.use(express.json());
-app.use(cors({ origin: '*' }));
 
 
 app.get('/', (req: Request, res: Response) => {

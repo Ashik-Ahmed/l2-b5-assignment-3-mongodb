@@ -40,7 +40,7 @@ export const getAllBook = async (req: Request, res: Response) => {
         const filter: Object = req.query.filter ? { genre: req.query.filter } : {};
         const sortBy: string = req.query.sortBy ? req.query.sortBy.toString() : "title";
         const sort: string = req.query.sort ? req.query.sort.toString() : "asc";
-        const limit: number = req.query.limit ? parseInt(req.query.limit.toString()) : 10;
+        const limit: number = req.query.limit ? parseInt(req.query.limit.toString()) : 100;
 
         const books = await getAllBookService(filter, sortBy, sort, limit);
 
@@ -130,7 +130,7 @@ export const updateBookById = async (req: Request, res: Response) => {
 export const deleteBookById = async (req: Request, res: Response) => {
     try {
         const bookId = req.params.bookId;
-        console.log("Deleting book with ID:", bookId);
+
         const deletedBook = await deleteBookByIdService(bookId);
 
         if (deletedBook?.deletedCount > 0) {
